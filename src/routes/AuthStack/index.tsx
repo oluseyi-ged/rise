@@ -1,19 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {
-  CreateProfile,
-  Describe,
-  FinishProfile,
-  ForgotPassword,
-  Login,
-  Otp,
-  Phone,
-  Pin,
-  ResetPassword,
-  ResetSuccess,
-  SelfieScreen,
-  Signin,
-  Signup,
-} from '@screens';
+import {CreateProfile, FinishProfile, Login, Pin, Signup} from '@screens';
 import {verticalAnimation} from '@utils';
 import React from 'react';
 
@@ -34,40 +20,6 @@ const AuthStackScreens = () => {
         options={verticalAnimation}
       />
       <AuthStack.Screen
-        name="Signin"
-        component={Signin}
-        // @ts-ignore
-        options={verticalAnimation}
-      />
-      <AuthStack.Screen
-        name="Describe"
-        component={Describe}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <AuthStack.Screen
-        name="Otp"
-        component={Otp}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <AuthStack.Screen
-        name="Phone"
-        component={Phone}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <AuthStack.Screen
-        name="ForgotPassword"
-        component={ForgotPassword}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <AuthStack.Screen
         name="Pin"
         component={Pin}
         options={{
@@ -77,27 +29,6 @@ const AuthStackScreens = () => {
       <AuthStack.Screen
         name="CreateProfile"
         component={CreateProfile}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <AuthStack.Screen
-        name="ResetSuccess"
-        component={ResetSuccess}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <AuthStack.Screen
-        name="ResetPassword"
-        component={ResetPassword}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <AuthStack.Screen
-        name="SelfieScreen"
-        component={SelfieScreen}
         options={{
           headerShown: false,
         }}

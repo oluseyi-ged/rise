@@ -28,7 +28,7 @@ export const Button: FC<Props> = ({
   loading,
   containerStyle,
   textStyle,
-  backgroundColor = palette.blue,
+  backgroundColor = palette.teal,
   iconContainerStyle,
   bordered,
   iconSize,
@@ -46,7 +46,7 @@ export const Button: FC<Props> = ({
         (disabled || loading) && {backgroundColor: palette.fadeBlack},
       ]}>
       {loading ? (
-        <ActivityIndicator color={bordered ? palette.blue : palette.white} />
+        <ActivityIndicator color={bordered ? palette.teal : palette.white} />
       ) : (
         <View style={{flexDirection: 'row'}}>
           {iconName && (

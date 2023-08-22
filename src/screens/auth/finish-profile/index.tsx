@@ -12,20 +12,22 @@ export const FinishProfile: FC = ({navigation}: any) => {
       <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
         <View style={style.container}>
           <SizedBox height={50} />
-          <SvgIcon name="party" size={250} />
+          <SvgIcon name="party" size={90} />
           <SizedBox height={25} />
-          <Text style={style.headerLabel}>Sign Up{'\n'}Successfully</Text>
-          <SizedBox height={16} />
-          <Text style={style.headerSub}>
-            Welcome to Moola microfinance bank app
+          <Text style={style.headerLabel}>
+            You just created your Rise account
           </Text>
+          <SizedBox height={16} />
+          <Text style={style.headerSub}>Welcome to Rise, let’s log you in</Text>
         </View>
       </KeyboardAwareScrollView>
       <View style={style.bottomText}>
         <Button
-          title="Proceed to Login"
+          title="Okay"
           containerStyle={{width: width * 0.9}}
-          onPress={() => navigation.navigate('Login')}
+          onPress={() =>
+            navigation.reset({index: 0, routes: [{name: 'Login', params: {}}]})
+          }
         />
       </View>
     </SafeAreaView>

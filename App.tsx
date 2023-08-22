@@ -2,13 +2,10 @@ import RootNavigator from '@routes';
 import React from 'react';
 import {LogBox} from 'react-native';
 import 'react-native-gesture-handler';
-import {enableLatestRenderer} from 'react-native-maps';
 import {Provider} from 'react-redux';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import store from 'store';
-
-enableLatestRenderer();
 
 let persistor = persistStore(store);
 

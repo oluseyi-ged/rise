@@ -17,11 +17,12 @@ export const palette = {
   borderGreen: '#C8D736',
   mutedGreen: '#D5F7E5',
   blueBlack: '#082932',
-  dark: '#263238',
+  dark: '#222',
   blue: '#2196F3',
   lightText: '#BABABB',
   fadeBlue: '#4D5F82',
   grey: '#4C4D50',
   label: '#1976D2',
   red: '#D32F2F',
+  teal: '#0898A0',
 };

@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import {SizedBox} from '@components';
 import {SvgIcon} from '@components/svg-icon';
-import {HDP} from '@helpers';
-import {palette} from '@theme';
+import {HDP, RF} from '@helpers';
+import {family, palette} from '@theme';
 import React, {FC, useEffect, useState} from 'react';
 import {TextInput as TN, Text, View} from 'react-native';
 import style from './styles';
@@ -61,7 +61,7 @@ export const TextInput: FC<Props> = ({
   padding = HDP(12),
   inputStyle,
   placeholder,
-  placeholderTextColor = '#696A73',
+  placeholderTextColor = '#292F33',
   keyboardType,
   onSubmit,
   onFocus,
@@ -109,26 +109,28 @@ export const TextInput: FC<Props> = ({
   return (
     <>
       <View
-        style={[
-          // @ts-ignore
-          error && {
-            borderColor: '#D32F2F50',
-            borderWidth: HDP(4),
-            borderRadius: HDP(7),
-          },
-          focused && {
-            borderColor: '#E3F2FD',
-            borderWidth: HDP(4),
-            borderRadius: HDP(7),
-          },
-        ]}>
+        style={
+          [
+            // @ts-ignore
+            // error && {
+            //   borderColor: '#D32F2F50',
+            //   borderWidth: HDP(4),
+            //   borderRadius: HDP(7),
+            // },
+            // focused && {
+            //   borderColor: '#0898A0',
+            //   borderWidth: HDP(4),
+            //   borderRadius: HDP(7),
+            // },
+          ]
+        }>
         <View
           style={[
             style.inputContainer,
             {paddingHorizontal: padding},
             inputStyle,
             bordered && style.bordered,
-            focused && {borderColor: palette.blue},
+            focused && {borderColor: palette.teal},
             error?.length && {borderColor: palette.red},
           ]}>
           {(label && focused) || (label && value?.length) ? (
@@ -155,7 +157,13 @@ export const TextInput: FC<Props> = ({
           <TN
             placeholder={placeholder}
             style={[
-              {padding, flex: 1, color: bordered ? '#fff' : '#082932'},
+              {
+                padding,
+                flex: 1,
+                color: bordered ? '#fff' : '#292F33',
+                fontSize: RF(15),
+                fontFamily: family.Bold,
+              },
               innerStyle,
             ]}
             placeholderTextColor={bordered ? '#EAFFD270' : placeholderTextColor}
@@ -193,7 +201,7 @@ export const TextInput: FC<Props> = ({
           {type === 'password' && (
             <SvgIcon
               name={isPasswordVisible ? 'open-eye' : 'eye-close'}
-              size={20}
+              size={23}
               onPress={togglePasswordVisibility}
             />
           )}
@@ -207,10 +215,10 @@ export const TextInput: FC<Props> = ({
       {error?.length ? (
         <>
           <Text style={[style.error]}>{error}</Text>
-          <SizedBox height={10} />
+          <SizedBox height={17} />
         </>
       ) : (
-        <SizedBox height={10} />
+        <SizedBox height={17} />
       )}
     </>
   );

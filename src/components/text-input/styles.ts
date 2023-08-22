@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     borderRadius: HDP(4),
     flexDirection: 'row',
-    height: HDP(48),
+    height: HDP(55),
     alignItems: 'center',
     backgroundColor: '#fff',
     borderWidth: 1,
@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: RF(10),
-    color: palette.label,
-    fontFamily: family.Regular,
+    color: palette.teal,
+    fontFamily: family.Bold,
     alignSelf: 'flex-start',
     position: 'absolute',
     backgroundColor: '#fff',

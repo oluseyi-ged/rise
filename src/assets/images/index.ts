@@ -8,3 +8,4 @@ export const Setup = require('./home/setup.png');
 export const Extra1 = require('./home/extra1.png');
 export const Extra2 = require('./home/extra2.png');
 export const Map = require('./home/map.png');
+export const Hue = require('./home/hue.png');

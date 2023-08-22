@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 declare module '*.svg' {
   import React from 'react';
   import {SvgProps} from 'react-native-svg';

@@ -1,27 +1,27 @@
-import { HDP, RF } from "@helpers"
-import { family, palette } from "@theme"
-import { StyleSheet } from "react-native"
+import {HDP, RF} from '@helpers';
+import {family, palette} from '@theme';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   containerCommonStyle: {
-    backgroundColor: "red",
+    backgroundColor: 'red',
     paddingVertical: HDP(16),
-    width: "100%",
+    width: '100%',
     // height: HDP(49),
     borderRadius: HDP(4),
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 
   textCommonStyle: {
-    color: palette.textWhite,
-    fontSize: RF(12),
+    color: palette.white,
+    fontSize: RF(15),
     fontFamily: family.Bold,
   },
 
   borderStyle: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     borderWidth: 1,
     borderRadius: HDP(8),
     borderColor: palette.dark,
@@ -40,6 +40,6 @@ const styles = StyleSheet.create({
     borderRadius: HDP(6),
     borderColor: palette.borderGreen,
   },
-})
+});
 
-export default styles
+export default styles;

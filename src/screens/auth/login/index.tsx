@@ -1,178 +1,125 @@
-/* eslint-disable react-native/no-inline-styles */
-import {Button, SizedBox, SvgIcon} from '@components';
-import {HDP} from '@helpers';
+import {Button, SizedBox, TextInput} from '@components';
 import {flash} from '@helpers/FlashMessageHelpers';
-import auth from '@react-native-firebase/auth';
-import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
-import {useOauthMutation} from '@services/mutationApi';
+import {useLoginMutation} from '@services/mutationApi';
 import {setAuth} from '@slices/auth';
 import {setLogged} from '@slices/logged';
-import {setProfile} from '@slices/profile';
-import React, {FC, useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Formik} from 'formik';
+import React, {FC, useEffect, useRef} from 'react';
+import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {useAppDispatch} from 'store';
+import * as yup from 'yup';
 import style from './styles';
 
 export const Login: FC = ({navigation}: any) => {
-  const [oData, setOData] = useState<any>({});
+  const formRef = useRef<any>();
   const dispatch = useAppDispatch();
-  const [gToken, setGToken] = useState<any>('');
 
-  const [oauth, {data, isLoading, isSuccess, isError, error, reset}] =
-    useOauthMutation();
+  const [logIn, {data, isLoading, isSuccess, isError, error: logErr}] =
+    useLoginMutation();
 
   useEffect(() => {
     if (isSuccess) {
-      if (data?.userAccount?.accountSetupStage === 'SETUP_COMPLETED') {
-        dispatch(setProfile(data));
-        dispatch(setLogged(true));
-        navigation.reset({
-          index: 0,
-          routes: [
-            {
-              name: 'Home',
-            },
-          ],
-        });
-      } else {
-        console.log(data, oData);
-        dispatch(setAuth(data));
-        navigation.navigate('CreateProfile', {data: data, oauth: oData});
+      dispatch(setAuth(data));
+      dispatch(setLogged(true));
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Home', params: {}}],
+      });
+    }
+    if (isError && 'status' in logErr!) {
+      if (logErr?.data?.message?.length) {
+        flash.danger({description: logErr?.data?.message});
       }
     }
-    if (isError) {
-      console.log(error);
-      //@ts-ignore
-      flash.danger({
-        //@ts-ignore
-        description: isError?.data?.message,
-      });
-      reset();
-    }
-  }, [data, dispatch, error, isError, isSuccess, navigation, oData, reset]);
+  }, [data, logErr, isError, isLoading, isSuccess, navigation, dispatch]);
 
-  useEffect(() => {
-    if (gToken?.length) {
-      auth().onAuthStateChanged(user => {
-        if (user) {
-          user.getIdToken().then(token => {
-            console.log('first', token);
-            oauth({
-              idToken: token,
-            });
-          });
-        } else {
-          console.log('');
-        }
-      });
+  const handleSubmit = () => {
+    if (formRef.current) {
+      formRef.current.handleSubmit();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gToken]);
+  };
 
-  const GoogleSignUp = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      await GoogleSignin.signIn().then(result => {
-        const googleCredential = auth.GoogleAuthProvider.credential(
-          result?.idToken,
-        );
-        setOData(result?.user);
-        setGToken('trigger');
-        return auth().signInWithCredential(googleCredential);
-      });
-    } catch (err: any) {
-      if (err.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-        console.log('User cancelled the login flow !');
-      } else if (err.code === statusCodes.IN_PROGRESS) {
-        console.log('Signin in progress');
-        // operation (f.e. sign in) is in progress already
-      } else if (err.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log('Google play services not available or outdated !');
-        // play services not available or outdated
-      } else {
-        console.log(err);
-      }
-    }
+  const initSchema = yup.object().shape({
+    email_address: yup
+      .string()
+      .email('Invalid email')
+      .required('Email is required'),
+    password: yup.string().required('Please enter your password'),
+  });
+
+  const initialValues = {
+    email_address: '',
+    password: '',
   };
 
   return (
     <SafeAreaView style={style.pageWrap}>
-      <ScrollView contentContainerStyle={style.pageWrap}>
-        <View style={style.upperBox}>
-          <SizedBox height={80} />
-          <Text style={style.welcomeTxt}>Welcome to</Text>
-          <SizedBox height={12} />
-          <SvgIcon name="logo" size={200} containerStyle={{height: HDP(52)}} />
-        </View>
-        <View>
-          <View style={style.bottomBox}>
-            <Text style={[style.existSpan, {textDecorationLine: 'none'}]}>
-              Welcome back!
+      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+        <View style={style.container}>
+          <View style={style.upperBox}>
+            <Text style={style.welcomeTxt}>Welcome back</Text>
+            <SizedBox height={12} />
+            <Text style={style.welcomeSub}>
+              Let’s get you logged in to get back to building your
+              dollar-denominated investment portfolio.
             </Text>
-            <SizedBox height={11} />
-            <Text
-              style={[
-                style.existText,
-                {textAlign: 'left', alignSelf: 'flex-start'},
-              ]}>
-              Login now and get access to thousands of home cooked meals on
-              <Text style={[style.existSpanDark, {textDecorationLine: 'none'}]}>
-                {' '}
-                Cheffie.App!
-              </Text>
-            </Text>
-            <SizedBox height={21} />
-            <Button
-              iconName="email"
-              bordered
-              title="Continue with Email"
-              onPress={() => navigation.navigate('Signin', {mode: 'mail'})}
-            />
-            <SizedBox height={14} />
-            <Text style={style.orText}>or</Text>
-            <SizedBox height={14} />
-            <Button
-              iconName="google"
-              onPress={GoogleSignUp}
-              loading={isLoading}
-              bordered
-              title="Continue with Google"
-            />
-            <SizedBox height={16} />
-            <Button
-              iconName="phone"
-              bordered
-              title="Continue with Phone Number"
-              onPress={() => navigation.navigate('Signin', {mode: 'phone'})}
-            />
-            <SizedBox height={24} />
-            <TouchableOpacity onPress={() => navigation.navigate('Describe')}>
-              <Text style={style.existText}>
-                Don't have an account?{' '}
-                <Text style={style.existSpan}>Register</Text>
-              </Text>
-            </TouchableOpacity>
-            <SizedBox height={34} />
-            <TouchableOpacity>
-              <Text style={style.existText}>
-                By continuing, I agree to the and{' '}
-                <Text style={style.existSpanDark}>Terms of Use</Text> and{' '}
-                <Text style={style.existSpanDark}>Privacy Policy.</Text>
-              </Text>
-            </TouchableOpacity>
           </View>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={(values: any) => {
+              console.log(values);
+              logIn(values);
+            }}
+            innerRef={formRef}
+            validateOnChange={false}
+            validateOnBlur={false}
+            validationSchema={initSchema}>
+            {({errors, setFieldValue, values}) => (
+              <View>
+                <TextInput
+                  placeholder="Email Address"
+                  label="Email address"
+                  name="email_address"
+                  autoCorrect={false}
+                  // @ts-ignore
+                  error={errors?.email_address}
+                  onChangeText={value => setFieldValue('email_address', value)}
+                  // @ts-ignore
+                  value={values.email_address}
+                />
+                <TextInput
+                  placeholder="Password"
+                  label="Password"
+                  type="password"
+                  name="password"
+                  autoCorrect={false}
+                  // @ts-ignore
+                  error={errors?.password}
+                  onChangeText={value => {
+                    setFieldValue('password', value);
+                  }}
+                />
+                <SizedBox height={5} />
+                <Button
+                  title="Sign In"
+                  onPress={handleSubmit}
+                  loading={isLoading}
+                />
+                <SizedBox height={16} />
+                <TouchableOpacity style={style.forgotCta}>
+                  <Text style={style.forgotText}>I forgot my password</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </Formik>
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
+      <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+        <Text style={style.newText}>
+          Don't have an account? <Text style={style.newSpan}> Sign up</Text>
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };

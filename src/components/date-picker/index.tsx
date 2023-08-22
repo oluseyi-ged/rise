@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {SizedBox, SvgIcon} from '@components';
 import {HDP} from '@helpers';
 import {palette} from '@theme';
@@ -56,24 +57,27 @@ export const DateSelect: FC<Props> = ({
         // @ts-ignore
         style={[
           style.inputContainer,
-          value && {borderColor: palette.blue},
+          value && {borderColor: palette.teal},
           error?.length && {borderColor: palette.red},
         ]}
         onPress={() => setOpen(!open)}>
-        {label && value?.length ? (
-          <>
-            <Text
-              style={[
-                style.label,
-                // @ts-ignore
-                error?.length && {color: palette.red},
-              ]}>
-              {label}
-            </Text>
-          </>
-        ) : null}
+        <View>
+          {label ? (
+            //  && !value?.length
+            <>
+              <Text
+                style={[
+                  style.label,
+                  // @ts-ignore
+                  error?.length && {color: palette.red},
+                ]}>
+                {label}
+              </Text>
+            </>
+          ) : null}
+          <Text style={style.placeholderText}>{value || placeholder}</Text>
+        </View>
         <SvgIcon name="calendar" size={20} />
-        <Text style={style.placeholderText}>{value || placeholder}</Text>
       </TouchableOpacity>
 
       <DatePicker

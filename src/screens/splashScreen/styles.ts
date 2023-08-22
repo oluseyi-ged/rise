@@ -1,4 +1,4 @@
-import {RF} from '@helpers';
+import {HDP, RF} from '@helpers';
 import {family, palette} from '@theme';
 import {Dimensions, StyleSheet} from 'react-native';
 
@@ -9,16 +9,25 @@ const style = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: palette.teal,
+    paddingVertical: HDP(70),
   },
   image: {
     marginVertical: 'auto',
   },
   splashText: {
-    color: palette.offWhite,
-    fontSize: RF(16),
-    fontFamily: family.Bold,
+    color: palette.white,
+    fontSize: RF(18),
+    fontFamily: family.Regular,
+    width: width * 0.7,
+    textAlign: 'center',
+  },
+  splashMini: {
+    color: palette.white,
+    fontSize: RF(12),
+    fontFamily: family.Regular,
     width: width * 0.7,
     textAlign: 'center',
   },
