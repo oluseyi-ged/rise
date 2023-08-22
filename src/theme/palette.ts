@@ -1,0 +1,27 @@
+/* https://chir.ag/projects/name-that-color If naming is too hard :) */
+
+export const palette = {
+  purple: '#009FA9',
+  pink: '#F4B6CE',
+  orange: '#EB5428',
+  green: '#27AE60',
+  white: '#FFFFFF',
+  black: '#1E1E1E',
+  purpleFade: '#193265',
+  border: '#D8D8D8',
+  fadeBlack: '#696A6C',
+  offPink: '#F4B6CE33',
+  gray: '#F7F7F7',
+  offWhite: '#F1F1F1',
+  textWhite: '#FEFEFE',
+  borderGreen: '#C8D736',
+  mutedGreen: '#D5F7E5',
+  blueBlack: '#082932',
+  dark: '#263238',
+  blue: '#2196F3',
+  lightText: '#BABABB',
+  fadeBlue: '#4D5F82',
+  grey: '#4C4D50',
+  label: '#1976D2',
+  red: '#D32F2F',
+};

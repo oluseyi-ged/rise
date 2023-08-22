@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "586721565558",
+    "project_id": "cheffie-cef89",
+    "storage_bucket": "cheffie-cef89.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586721565558:android:cb32b604401498b161b857",
+        "android_client_info": {
+          "package_name": "com.cheffie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586721565558-rt5k3ag6nksl7kek00c54nbft0gpigrt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cheffie",
+            "certificate_hash": "5dffc9130827f6d90176feed9caa66b9c1d93b2a"
+          }
+        },
+        {
+          "client_id": "586721565558-b9vkec3tbfmsaba0rfgcr06a99dl6rco.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfEGR7WWexRbTMlaU8NR7AkR3AE_pIFvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586721565558-b9vkec3tbfmsaba0rfgcr06a99dl6rco.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
