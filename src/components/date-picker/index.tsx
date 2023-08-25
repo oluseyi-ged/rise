@@ -15,6 +15,8 @@ interface Props {
   error?: any;
   value?: any;
   disabled?: boolean;
+  max?: any;
+  min?: any;
 }
 
 export const DateSelect: FC<Props> = ({
@@ -24,12 +26,14 @@ export const DateSelect: FC<Props> = ({
   error,
   value,
   disabled,
+  max,
+  min,
 }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [open, setOpen] = useState(false);
 
   // const minDate = new Date();
-  const maxDate = new Date();
+  const maxDate = max || new Date();
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -89,6 +93,7 @@ export const DateSelect: FC<Props> = ({
         onConfirm={handleDateChange}
         mode="date"
         maximumDate={maxDate}
+        minimumDate={min}
       />
       {error?.length && <Text style={[style.error]}>{error}</Text>}
       <SizedBox height={10} />

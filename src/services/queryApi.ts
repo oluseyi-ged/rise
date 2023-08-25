@@ -49,7 +49,17 @@ export const queryApi = createApi({
         url: 'quotes',
       }),
     }),
+    getProjection: builder.query({
+      query: ({pay, target, date}) => ({
+        url: `plans/projection?monthly_investment=${pay}&target_amount=${target}&maturity_date=${date}`,
+      }),
+    }),
   }),
 });
 
-export const {useGetUserQuery, useGetPlansQuery, useGetQuoteQuery} = queryApi;
+export const {
+  useGetUserQuery,
+  useGetPlansQuery,
+  useGetQuoteQuery,
+  useGetProjectionQuery,
+} = queryApi;

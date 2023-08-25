@@ -148,10 +148,11 @@ const styles = StyleSheet.create({
   },
   addInv: {
     backgroundColor: 'rgba(113, 135, 156, 0.10)',
-    borderRadius: HDP(12),
+    borderRadius: HDP(15),
     width: width * 0.5,
     height: HDP(243),
     justifyContent: 'center',
+    marginRight: HDP(20),
   },
   addInvText: {
     fontSize: RF(14),
@@ -249,6 +250,33 @@ const styles = StyleSheet.create({
     fontSize: RF(13),
     fontFamily: family.Regular,
     color: '#71879C',
+  },
+  bannerImg: {
+    height: HDP(243),
+    width: width * 0.5,
+    borderRadius: HDP(15),
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    justifyContent: 'flex-end',
+    paddingHorizontal: HDP(16),
+    paddingBottom: HDP(18),
+    borderRadius: HDP(15),
+  },
+  overlayText: {
+    color: 'white',
+    fontSize: RF(14),
+    fontFamily: family.Bold,
+  },
+  overlayDesc: {
+    color: 'white',
+    fontSize: RF(14),
+    fontFamily: family.Regular,
+  },
+  itemId: {
+    gap: HDP(5),
+    marginBottom: HDP(10),
   },
 });
 

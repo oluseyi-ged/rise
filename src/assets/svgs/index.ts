@@ -49,6 +49,7 @@ export {default as Gear} from './gear.svg';
 export {default as Gift} from './gift.svg';
 export {default as GoldLoc} from './gold-loc.svg';
 export {default as Google} from './google.svg';
+export {default as Graph} from './graph.svg';
 export {default as HelpPhone} from './help-phone.svg';
 export {default as Help} from './help.svg';
 export {default as HomeInactive} from './home-inactive.svg';

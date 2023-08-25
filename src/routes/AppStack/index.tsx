@@ -1,6 +1,12 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {TabsStackScreens} from '@routes/Tabs';
-import {} from '@screens';
+import {
+  GoalAmount,
+  GoalDate,
+  GoalPlan,
+  PlanSuccess,
+  Projections,
+} from '@screens';
 
 import React from 'react';
 
@@ -11,6 +17,41 @@ const AppStackScreens = () => {
       <AppStack.Screen
         name="AppHome"
         component={TabsStackScreens}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <AppStack.Screen
+        name="GoalAmount"
+        component={GoalAmount}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <AppStack.Screen
+        name="GoalPlan"
+        component={GoalPlan}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <AppStack.Screen
+        name="GoalDate"
+        component={GoalDate}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <AppStack.Screen
+        name="Projections"
+        component={Projections}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <AppStack.Screen
+        name="PlanSuccess"
+        component={PlanSuccess}
         options={{
           headerShown: false,
         }}

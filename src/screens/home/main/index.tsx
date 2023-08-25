@@ -11,6 +11,7 @@ import {family, palette} from '@theme';
 import React, {useState} from 'react';
 import {
   Dimensions,
+  FlatList,
   ImageBackground,
   ScrollView,
   Text,
@@ -25,6 +26,59 @@ const {width, height} = Dimensions.get('window');
 export const Home = ({navigation}: any) => {
   const {auth} = useAppSelector((store: RootState) => store);
   const [startPlan, setStartPlan] = useState(false);
+
+  const {
+    data: plansData = [],
+    // @ts-ignore
+  } = useGetPlansQuery(null, {
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
+
+  const planUrls = [
+    'https://images.pexels.com/photos/3709097/pexels-photo-3709097.jpeg?auto=compress&cs=tinysrgb&w=800',
+    'https://images.pexels.com/photos/6214457/pexels-photo-6214457.jpeg?auto=compress&cs=tinysrgb&w=800',
+    'https://images.pexels.com/photos/1522186/pexels-photo-1522186.jpeg?auto=compress&cs=tinysrgb&w=800',
+    'https://images.pexels.com/photos/1386353/pexels-photo-1386353.jpeg?auto=compress&cs=tinysrgb&w=800',
+    'https://images.pexels.com/photos/1004783/pexels-photo-1004783.jpeg?auto=compress&cs=tinysrgb&w=800',
+  ];
+
+  const dataWithButton = [
+    {id: 'button', isButton: true},
+    ...(plansData?.items || []),
+  ];
+
+  const renderItem = ({item, index}) => {
+    if (item.isButton) {
+      return (
+        <TouchableOpacity
+          onPress={() => setStartPlan(true)}
+          style={styles.addInv}>
+          {/* SvgIcon and SizedBox components */}
+          <SvgIcon name="add" size={45} />
+          <SizedBox height={5} />
+          <Text style={styles.addInvText}>Create an investment plan</Text>
+        </TouchableOpacity>
+      );
+    }
+
+    return (
+      <ImageBackground
+        source={{uri: planUrls[index - 1]}} // Adjust index for plans data
+        style={styles.bannerImg}>
+        <View style={styles.overlay}>
+          <View style={styles.itemId}>
+            <Text style={styles.overlayText}>{item?.plan_name}</Text>
+            <Text style={styles.overlayDesc}>{item?.target_amount}</Text>
+          </View>
+        </View>
+      </ImageBackground>
+    );
+  };
+
+  // useEffect(() => {
+  //   dispatch(setLogged(false));
+  // }, []);
 
   const planIntro = [
     {
@@ -57,14 +111,6 @@ export const Home = ({navigation}: any) => {
   });
 
   const {
-    data: plansData,
-    // @ts-ignore
-  } = useGetPlansQuery(null, {
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-  });
-
-  const {
     data: quotes,
     isFetching: quotesLoad,
     // @ts-ignore
@@ -72,6 +118,11 @@ export const Home = ({navigation}: any) => {
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
   });
+
+  const handleStart = async () => {
+    await setStartPlan(false);
+    navigation.navigate('GoalPlan');
+  };
 
   return (
     <ScrollView style={styles.pageWrap}>
@@ -150,13 +201,16 @@ export const Home = ({navigation}: any) => {
             Start your investment journey by creating a plan"
           </Text>
           <SizedBox height={20} />
-          <TouchableOpacity
-            onPress={() => setStartPlan(true)}
-            style={styles.addInv}>
-            <SvgIcon name="add" size={45} />
-            <SizedBox height={5} />
-            <Text style={styles.addInvText}>Create an investment plan</Text>
-          </TouchableOpacity>
+          <FlatList
+            data={dataWithButton || []}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            pagingEnabled
+            renderItem={renderItem}
+            keyExtractor={(item, index) =>
+              item.isButton ? 'button' : index.toString()
+            }
+          />
         </View>
 
         <SizedBox height={31} />
@@ -224,7 +278,7 @@ export const Home = ({navigation}: any) => {
               </View>
             ))}
             <SizedBox height={60} />
-            <Button title="Continue" />
+            <Button title="Continue" onPress={handleStart} />
             <SizedBox height={20} />
           </ScrollView>
         }

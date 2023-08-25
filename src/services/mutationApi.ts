@@ -53,7 +53,18 @@ export const mutationApi = createApi({
         };
       },
     }),
+
+    createPlan: builder.mutation({
+      query: body => {
+        return {
+          url: 'plans',
+          method: 'POST',
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const {useSignUpMutation, useLoginMutation} = mutationApi;
+export const {useSignUpMutation, useLoginMutation, useCreatePlanMutation} =
+  mutationApi;
