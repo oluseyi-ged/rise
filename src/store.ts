@@ -52,7 +52,7 @@ const persistConfig = {
     'first',
     'metrics',
     'faux',
-    'logged',
+    // 'logged',
     'address',
     'restaurants',
   ],
